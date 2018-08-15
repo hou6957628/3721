@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>借点儿</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        .er{
+            position: absolute;
+            top: 140px;
+            left: 50%;
+            margin-left: -50px;
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 30px;
+        }
+        .but{
+            display: inline-block;
+            margin: 0 auto;
+            font-size: 18px;
+            padding: 12px 60px;
+            background-color: #58a2ea;
+            border-radius: 30px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+        }
+        p{
+            color: #333;
+            font-size: 22px;
+            line-height: 33px;
+            text-align: center;
+            margin-top: 278px;
+            margin-bottom: 50px;
+        }
+        .app{
+            display: none;
+            width: 24px;
+            height: 24px;
+            background-size: 24px 24px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACuUlEQVRoQ+2a/W0UMRDFXyoAKgAqgFSQUAF0AFQQUkGggoQKgA5CBUkqCFQAqQBSQaKftEZ7m7E9a9/ZuxIjne4f2/fefHt8e+onLyUdSeL7u6SPJVD2SjZV7nkm6Yukw9E5n9ZC4J2kU0mPJ0pYBQHAo3lL9iX9KLFsKxfCz68jAG8k4VZF0orAxcTnx2DfS/pahF5SCwIEKwQs+TlkoVL8TQig3bcGwtvBKkW+H85rYYE/RtbZCnhItCBwN9E+bkNGqtJ8KwuQ77EAGr8cgvW82OGNjTUWANyL4UxS4e+ZwEidT0dBjEVmnzOXAKDpX3ABK3ejXT70Nn8NQuxh/5tE7kcRBP7nyBkbx84hcCLpgxGQluIBDxHcBkAUMkjz7RXOoMGDSFQ8BNA6eXzOj3tBetZhDYqdKTkCvcEH0FESOQKpFsCjvW2tIbjxgAdxlSKQ6h63BcxzztUQ9FZSSBayXzVdogeZYw1Fj17KBJ+qxEvQPsWPtBsFnyJACnzt0NAul7ja7FgMTPuXXQK1znZfciwCqf69FRGKF0UzKxaBJfj/q6GKFxGgfNM29JTVE3iSyz5Bu5YL/bfAFnyvyoWIfqZnPaUqCy0hjXKHeO7RoBUDlG/6oN5SVYnpPx51ZgAGrLDaXgj9cdEnoFfZjQYHSJKINXNLiYNAgqA+HgYFG56dupExUTjoHAfTn38Q2Gu4Uo5JENQbA7TcpZ7FTM+WIAzLGIi5XYiFS+iLAmCzvchZgLkQVuhdE5hMjF81/1khR4CFS7jgRB8BPQQg0TMjJRs7LwHqAgWltStFJ3KpC00s4/Rwpez7sdcCgVTswW4XabaqG00BakHi25A8soqZawGvJSg6TPdIwcQO3STT5fDQkWpRZv1vopQARKiKxAUjSOaYAAU0Fkr28JMXG8gwxGX/2dzXy3vcN4gxRal4ggAAAABJRU5ErkJggg==");
+        }
+        .app2{
+            display: none;
+            width: 24px;
+            height: 24px;
+            background-size: 24px 24px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background-image: url("data:image/png;base64,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");
+        }
+        span{
+            vertical-align: middle;
+        }
+        .bg{
+            position: absolute;
+            top: 105px;
+            left: 50%;
+            width: 160px;
+            height: 160px;
+            background-size: 100% auto;
+            border: none;
+            background-color: #fff;
+            margin: auto;
+            margin-left: -80px;
+            text-align: center;
+        }
+        .top{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+        }
+        .content{
+            display: none;
+            padding: 20px 20px;
+            margin-top: 0;
+        }
+        .font-16{
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0 0 10px;
+            padding: 0 20px 20px;
+            color: #333;
+        }
+        li{
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .ttt{
+            padding-left: 5px;
+            border-left: 2px solid #ee9400;
+        }
+        img{
+            display: inline-block;
+            margin: 0 auto;
+        }
+        #cnzz_stat_icon_1272955236 a{
+            color: #fff;
+        }
+        .view-alert{
+            display: none;
+        }
+        .top_85{
+            position: absolute;
+            top:85px;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+    <!--<script src="js/jquery-1.10.2.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.zhuge = window.zhuge || [];window.zhuge.methods = "_init debug identify track trackLink trackForm page".split(" ");
+        window.zhuge.factory = function(b) {return function() {var a = Array.prototype.slice.call(arguments);a.unshift(b);
+            window.zhuge.push(a);return window.zhuge;}};for (var i = 0; i < window.zhuge.methods.length; i++) {
+            var key = window.zhuge.methods[i];window.zhuge[key] = window.zhuge.factory(key);}window.zhuge.load = function(b, x) {
+            if (!document.getElementById("zhuge-js")) {var a = document.createElement("script");var verDate = new Date();
+                var verStr = verDate.getFullYear().toString()+ verDate.getMonth().toString() + verDate.getDate().toString();
+                a.type = "text/javascript";a.id = "zhuge-js";a.async = !0;a.src = (location.protocol == 'http:' ? "http://sdk.zhugeio.com/zhuge.min.js?v=" : 'https://zgsdk.zhugeio.com/zhuge.min.js?v=') + verStr;
+                a.onerror = function(){window.zhuge.identify = window.zhuge.track = function(ename, props, callback){if(callback && Object.prototype.toString.call(callback) === '[object Function]')callback();};};
+                var c = document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a, c);window.zhuge._init(b, x)}};
+        window.zhuge.load('902e2e4747f44792b0c98f27e7e8eb4d', {debug:true});//配置应用的AppKey
+    </script>
+    <script>
+        function downApp() {
+            if (window.localStorage) {
+                var phoneNum=localStorage.getItem("phoneNum");
+            }else{}
+            var browser = {
+                versions: function () {
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {         //移动终端浏览器版本信息
+                        trident: u.indexOf('Trident') > -1, //IE内核
+                        presto: u.indexOf('Presto') > -1, //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1, //是否iPad
+                        webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                    };
+                }(),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            };
+            if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+                var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {//在微信中打开
+                    window.location= "http://www.zytech360.com/jiedianer_1.1.7.apk";
+                    $("#contt").addClass("top_85");
+                    $(".view-alert").css("display","block");
+                }
+                if (browser.versions.ios) {
+                    zhuge.track('ios按钮点击下载');
+                    window.location.href = "itms-services:///?action=download-manifest&url=https://zytech-install.oss-cn-beijing.aliyuncs.com/app/jiedian.plist";
+                }
+                if (browser.versions.android &&  !(ua.match(/MicroMessenger/i) == "micromessenger")) {
+                    zhuge.track('android按钮点击下载');
+                    zhuge.identify(phoneNum,function () {
+                        window.location= "https://zytech-install.oss-cn-beijing.aliyuncs.com/app/jiedianer_1.1.7.apk";
+                    });
+                }
+                if (browser.versions.iPhone) {
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+<div class="row view-alert" style="position: absolute;top:0;left:0;z-index: 99; width: 100%; background: rgb(52, 52, 52); margin-left: 0px; margin-right: 0px; padding-top: 10px; padding-bottom: 10px; box-shadow: rgba(22, 22, 23, 0.619608) 0px -10px 16px inset;">
+    <div class="col-md-12 text-left" style="padding-right:50px;padding-left:30px;text-align: left">
+        <p style="color:#7f7e7e;margin:0px;font-size: 14px">点击右上角按钮，然后在弹出的菜单中，点击在浏览器中打开，即可安装</p>
+    </div>
+    <div class="col-md-12 pull-right" style="float:right;">
+        <img src="https://static.pgyer.com/static-20180328/assets/img/alert-arrow.png" class="pull-right" style="width:30px;margin-top:-68px;float:right;">
+    </div>
+</div>
+<div id="contt">
+<img src="http://www.zytech360.com/top_bg.png" class="top">
+<img src="http://www.zytech360.com/app_bg.png" class="bg">
+<img class="er" src="http://www.zytech360.com/jiedian512.png">
+<p><i class="app"></i><i class="app2"></i><span>借点儿</span></p>
+<div style="width:300px;margin: 0 auto;text-align: center"><a href="Javascript:;" class="but" onclick="downApp()">点击安装</a></div>
+<div class="content">
+    <div class="titt" style="text-align: center;padding-top: 10px;padding-bottom: 10px;">
+        <a style="height: 25px;line-height: 25px;font-size: 20px;" href="http://t.cn/RmA7pBy">http://t.cn/RmA7pBy</a>
+        <div style="height: 25px;line-height: 25px;font-size: 16px;">如不能下载 请长按上面的链接进行拷贝，</div>
+        <div style="height: 25px;line-height: 25px;font-size: 16px;">至苹果自带浏览器safari或其他浏览器打开</div>
+    </div>
+    <h4 class="ttt">"未受信任的企业级开发者"的解决办法</h4>
+    <div>
+        <p style="margin-top: 10px; margin-bottom: 10px;font-size: 14px;">因苹果公司的政策原因，在iOS系统中首次安装企业版应用时会出现"未受信任的企业级开发者"提示</p>
+        <div style="padding:0 10px 20px;text-align: center">
+            <img class="img-responsive center-block" src="https://static.pgyer.com/image/view/admin_images/d8090f2e4fd0f00be88be9d86355db12" style="width:80%;">
+            <br>
+            <h4 class="font-16">解决办法如下（以iOS11系统为例）：</h4>
+            <li style="list-style:none;color:#333;">1、在手机中打开设置功能，选择"通用"</li>
+            <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180328/images/resovelFlow1.png" style="width:80%;">
+            <li style="list-style:none;color:#333;">2、在通用中，选择"描述文件与设备管理"功能</li>
+            <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180328/images/resovelFlow2.png" style="width:80%;">
+            <li style="list-style:none;color:#333;">3、在描述文件与设备管理中的企业级应用分类中，选择要安装的企业应用的文件名称（与打开时的提示一致），点击进入</li>
+            <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180328/images/resovelFlow3.png" style="width:80%;">
+            <li style="list-style:none;color:#333;">4、进入企业签名页面后，确认企业签名中的公司名称与应用名称后，点击信任"企业签名公司名称"</li>
+            <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180328/images/resovelFlow4.png" style="width:80%;">
+            <img class="img-responsive center-block mt-20 mb-20" src="https://static.pgyer.com/static-20180328/images/resovelFlow5.png" style="width:80%;">
+            <li style="list-style:none;color:#333;">5、回到桌面，重新打开应用即可使用</li>
+            <br>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(function () {
+        zhuge.track('进入下载页面次数');
+        (function (){
+            $("#cnzz_stat_icon_1272955236 a").css('color',"#fff");
+            var u = navigator.userAgent, app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {//在微信中打开
+                $("#contt").addClass("top_85");
+                $(".view-alert").css("display","block");
+            }
+            if(isAndroid==1){
+                $(".app2").css("display","inline-block");
+                $(".app").css("display","none");
+                $(".content").css("display","none");
+            }
+            else(
+                $(".content").css("display","inline-block"),
+                    $(".app").css("display","inline-block")
+            )
+        })();
+        $("#contt").on('click','.but',function () {
+            var browser = {
+                versions: function () {
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {         //移动终端浏览器版本信息
+                        trident: u.indexOf('Trident') > -1, //IE内核
+                        presto: u.indexOf('Presto') > -1, //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1, //是否iPad
+                        webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                    };
+                }(),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            };
+            if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+                var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {//在微信中打开
+                    window.location= "http://www.zytech360.com/jiedianer_1.1.7.apk";
+                    $("#contt").addClass("top_85");
+                    $(".view-alert").css("display","block");
+                }
+                if (browser.versions.ios) {
+                    zhuge.track('ios按钮点击下载');
+                    window.location.href = "itms-services:///?action=download-manifest&url=https://zytech-install.oss-cn-beijing.aliyuncs.com/app/jiedian.plist";
+                }
+                if (browser.versions.android && !(ua.match(/MicroMessenger/i) == "micromessenger")) {
+                    zhuge.track('android按钮点击下载');
+                    zhuge.identify(phoneNum,function () {
+                        window.location= "https://zytech-install.oss-cn-beijing.aliyuncs.com/app/jiedianer_1.1.7.apk";
+                    });
+                }
+                if (browser.versions.iPhone) {
+                    window.location.href = "itms-services:///?action=download-manifest&url=https://zytech-install.oss-cn-beijing.aliyuncs.com/app/jiedian.plist";
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

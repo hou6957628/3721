@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--ie和chrome中最佳的兼容模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--启用 webapp 模式, 会隐藏工具栏和菜单栏，和其它配合使用。-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--在webapp模式下，改变顶部状态条的颜色。-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--屏蔽电话号码-->
+    <meta name="format-detection" content="telephone=no">
+    <title>3721贷</title>
+    <link href="https://cdn.bootcss.com/layer/3.1.0/mobile/need/layer.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/flx.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body style="background-color: #ff452c">
+<div id="app">
+    <!--header start-->
+    <header id="header" style="width: 100%;height: auto" >
+        <div>
+            <img style="width: 100%;height: auto" src="images/loginIcon.png">
+        </div>
+    </header>
+    <!--header end-->
+
+    <!--content start-->
+    <div id="content" class="clearFix width_90 registerBox" style="">
+        <div class="wt_80" style="margin-top: 0.20rem">
+            <input type="number" id="phone" name="phone" placeholder="手机号" value="">
+        </div>
+        <div class="wt_80" style="position: relative">
+            <input type="text" id="password" name="password" placeholder="验证码" value="">
+            <button type="button" class="sendMsg" >获取验证码</button>
+        </div>
+        <p style="text-align: center;margin-top: 0.50rem;font-size: 13px;color: #999;"><input style="vertical-align: middle;" type="checkbox" checked="checked"><span style="vertical-align: middle;">&nbsp;阅读并同意&nbsp;<a href="xieyi.html" style="color: #999">3721贷服务协议</a></span></p>
+        <button id="submitBtn" type="submit">登录</button>
+        <span class="tips">tips:申请多家可提高额度,下款几率更高!!!</span>
+        <div class="footerBox">
+            <img src="images/daiIcon.png">
+            <img src="images/licaiIcon.png">
+            <img src="images/xinIcon.png">
+        </div>
+    </div>
+    <!--content end-->
+
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.1/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.2.0/js/swiper.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /**
+         * 判断是否为手机号
+         * @param pone 手机号传入
+         * @returns {boolean} 对的话返回true，不对返回false
+         */
+        function isPoneAvailable(pone) {
+            var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!myreg.test(pone)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        /**
+         * 判断是否为6-12位的数字+英文
+         * @param pass 密码传入
+         * @returns {boolean}
+         */
+        function isliu(pass) {
+            // var reg = /^[\w]{6,12}$/;
+            var reg = /^[\w]{4,6}$/;
+            if(!pass.match(reg)){
+                return false;
+            }else {
+                return true;
+            }
+        }
+
+        /**
+         * 登录按钮事件
+         */
+        $("#submitBtn").on('click',function () {
+            var that = this;
+            var phoneNum=$("#phone").val();
+            var passwordNum=$("#password").val();
+            var data1=JSON.stringify({"username": phoneNum, "sms_code": passwordNum, "form":localStorage.channel});
+            if(!isPoneAvailable(phoneNum)){
+                layer.msg("请填写有效的手机号");
+            }else if(!isliu(passwordNum)){
+                layer.msg("请填写有效的验证码");
+            }else{
+                $.ajax({
+                    url: "http://rest.xingningkeji.com/api/member/login",
+                    // url:"js/products.json",
+                    type: "POST",
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: "json",
+                    data: data1,
+                    success: function (date) {
+                        if(date.code==200){
+                            that.products=date.data.result;
+                            localStorage.token=date.data.authorization;
+                            localStorage.phone=phoneNum;
+                            layer.msg(date.msg);
+                            window.location.href="index.html?td_channelid="+localStorage.channel;
+                            // console.log(that.products);
+                        }
+                        else if(date.code==400){
+                            layer.msg(date.msg);
+                        }
+                    },
+                    error: function (err) {
+                        layer.msg(err.msg);
+                        console.log(err)
+                    }
+                });
+            }
+        })
+
+       $(".sendMsg").on('click',function () {
+           var phoneNum=$("#phone").val();
+           if(!isPoneAvailable(phoneNum)){
+               layer.msg("请填写有效的手机号");
+           }else {
+               $.ajax({
+                   url: "http://rest.xingningkeji.com/api/code/sendSmsCode/"+phoneNum,
+                   type: "GET",
+                   contentType: 'application/json;charset=UTF-8',
+                   dataType: "json",
+                   success: function (date) {
+                       if(date.code==200){
+                           layer.msg(date.msg);
+                           timer(60);
+                       }else if(date.code==400){
+                           layer.msg(date.msg);
+                           timer(60);
+                       }
+                   },
+                   error: function (err) {
+                       layer.msg(err);
+                   }
+               });
+           }
+
+       });
+        function timer(time) {
+            var btn = $(".sendMsg");
+            btn.addClass("deft");
+            btn.attr("disabled", "disabled");  //按钮禁止点击
+            btn.text(time <= 0 ? "发送验证码" : ("" + (time) + "秒后可发送"));
+            var hander = setInterval(function() {
+                if (time <= 0) {
+                    clearInterval(hander); //清除倒计时
+                    btn.text("发送验证码");
+                    btn.removeClass("deft");
+                    btn.attr("disabled", false);
+                    return false;
+                }else {
+                    btn.text("" + (time--) + "秒后可发送");
+                }
+            }, 1000);
+        }
+    })
+</script>
+</body>
+</html>

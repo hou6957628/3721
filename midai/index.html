@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--可视区域的定义，如屏幕缩放等。告诉浏览器如何规范的渲染网页-->
+    <!--ie和chrome中最佳的兼容模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--启用 webapp 模式, 会隐藏工具栏和菜单栏，和其它配合使用。-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--在webapp模式下，改变顶部状态条的颜色。-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--屏蔽电话号码-->
+    <meta name="format-detection" content="telephone=no">
+    <title>3721贷</title>
+    <link href="https://cdn.bootcss.com/layer/3.1.0/mobile/need/layer.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="http://sdk.talkingdata.com/app/h5/v1?appid=2079941E61844EAC909E5A6156CA5D07"></script>
+    <script src="js/flx.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .financing{
+            height: 7.5rem;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!--header start-->
+    <header id="header" class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img
+                    src="images/headerIcon.png"></div>
+            <div class="swiper-slide"><img
+                    src="images/headerIcon.png"></div>
+            <div class="swiper-slide"><img
+                    src="images/headerIcon.png"></div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+    </header>
+    <!--header end-->
+
+    <!--content start-->
+    <div id="content">
+        <!--tab区域 start-->
+        <!--<div class="tabs">-->
+            <!--<div class="tab">-->
+                <!--<img alt="贷款" src="images/icon1.png" style="">-->
+                <!--<p class="tabText1">贷款</p>-->
+                <!--<p class="tabText2">放款快,额度高</p>-->
+            <!--</div>-->
+            <!--<div class="tab">-->
+                <!--<img alt="信用卡" src="images/icon2.png" style="">-->
+                <!--<p class="tabText1">信用卡</p>-->
+                <!--<p class="tabText2">私人订制,随地预借</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="tab">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img alt="理财" src="images/icon3.png" style="">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p class="tabText1">理财</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<p class="tabText2">低风险,高收益</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+        <!--tab区域 end-->
+        <!--公告区域 start-->
+        <div class="gonggao clearFix">
+            <div style="width: 20%;float: left;text-align: center">公告:</div>
+            <marquee direction="left" Scrollamount="3" style="width: 80%;float: left;text-align: left">申请无需任何费用,谨防诈骗活动!</marquee>
+        </div>
+        <!--公告区域 end-->
+
+        <!--理财推荐区域start-->
+        <div class="financingTui">
+            <div class="financingTop financingBottom">
+                <div class="width_100">
+                    <span style="font-size: 14px">贷款推荐</span>
+                    <span class="finMore" style="font-size: 14px;float: right;">更多&nbsp;></span>
+                </div>
+            </div>
+            <div class="channelItem clearFix" v-for="(item,index) in products" v-if='index<=4' :key="item.id">
+                <div class="itemTop clearFix">
+                    <img class="itemImg" :src="'http://rest.xingningkeji.com/api/file/view/'+item.product_icon_path">
+                    <!--<img class="itemImg" src="images/ajq.png">-->
+                    <div class="itemDetail">
+                        <p class="p1">{{item.product_name}}</p>
+                        <p class="bable" v-for="item1 in item.product_labels.split(',')">{{item1}}</p>
+                    </div>
+                    <a href="javascript:;" class="itemBtn" :title="item.product_name" :src="item.product_url">立即申请</a>
+                </div>
+                <div class="itemBottom clearFix">
+                    <div class="liBox">
+                        <p class="liTxt" style="font-weight: bold">额度范围(元)</p>
+                        <p class="liNum">{{item.loan_min}}-{{item.loan_max}}</p>
+                        <!--<p class="liNum">1000-10000</p>-->
+                    </div>
+                    <div class="qiBox">
+                        <p class="qiTxt" style="font-weight: bold">期限范围</p>
+                        <p class="qiDay">{{item.time_limit_min}}-{{item.time_limit_max}}{{item.time_limit_unit}}</p>
+                        <!--<p class="qiDay">1-12个月</p>-->
+                    </div>
+                    <div class="jineBox">
+                        <p class="jineTxt" style="font-weight: bold">{{item.loan_rate_unit}}利率</p>
+                        <p class="jineNum" style="color: #ff452c;font-size: 16px">{{item.loan_rate}}%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--理财推荐区域end-->
+        <!--信用卡推荐区域start-->
+        <div class="financing clearFix">
+            <div class="financingTop">
+                <div class="width_100">
+                    <span style="font-size: 14px">信用卡推荐</span>
+                    <span style="font-size: 14px;float: right;">更多&nbsp;></span>
+                </div>
+            </div>
+            <div class="channelItem clearFix" style="height: 2.5rem;" v-for="(item,index) in productst" v-if='index<=1' :key="item.id">
+                <div class="itemTop1 clearFix">
+                    <img class="itemImg bankCard" :src="'http://rest.xingningkeji.com/api/file/view/'+item.product_icon_small">
+                    <!--<img class="itemImg" src="images/ajq.png">-->
+                    <div class="itemDetail">
+                        <p class="p1">{{item.product_name}}</p>
+                        <p class="p2">{{item.product_paperwork}}</p>
+                    </div>
+                    <a href="javascript:;" class="itemBtn" :title="item.product_name" :src="item.product_url">立即申请</a>
+                </div>
+            </div>
+        </div>
+        <!--信用卡推荐区域end-->
+
+    </div>
+    <!--content end-->
+
+    <!--footer start-->
+    <footer id="footer">
+        <a href="index.html" class="active" ><i class="indexIcon1"></i>
+            <p>首页</p>
+        </a>
+        <a href="loan.html"><i class="indexIcon2"></i>
+            <p>贷款</p>
+        </a>
+        <a href="creditCard.html"><i class="indexIcon3"></i>
+            <p>信用卡</p>
+        </a>
+        <a href="my.html"><i class="indexIcon5"></i>
+            <p>我的</p>
+        </a>
+    </footer>
+    <!--footer end-->
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            effect: 'fade',
+            loop: true,
+            autoplay: true,
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            // 如果需要滚动条
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    }
+</script>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.1/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.2.0/js/swiper.js"></script>
+<script>
+    $(function () {
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var channel= GetQueryString("td_channelid");
+        localStorage.channel=channel;
+        //tab区域跳转
+        $(".tabs").on('click','.tab',function () {
+            var index=$(this).index();
+            if(index=="0"){
+                window.location.href='loan.html'
+            }else if(index=="1"){
+                window.location.href='creditCard.html'
+            }else if(index=="2"){
+                window.location.href='financing.html'
+            }
+        });
+        //信用卡推荐更多
+        $(".financingTop").on('click',function () {
+            window.location.href="creditCard.html"
+        });
+        //贷款推荐更多
+        $(".financingBottom").on('click',function () {
+            window.location.href="loan.html"
+        });
+
+        //贷款事件统计
+        $(".financingTui").on("click",".itemBtn",function () {
+            if(localStorage.phone){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":channel};
+                TDAPP.onEvent("贷款链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }else if(localStorage.channel=="jsy"){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":channel};
+                TDAPP.onEvent("贷款链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }
+            else {
+                window.location.href='register.html'
+            }
+        });
+        //信用卡事件统计
+        $(".financing").on("click",".itemBtn",function () {
+            if(localStorage.phone){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":channel};
+                TDAPP.onEvent("银行卡链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }else if(localStorage.channel=="jsy"){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":channel};
+                TDAPP.onEvent("贷款链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }
+            else {
+                window.location.href='register.html'
+            }
+        });
+    })
+</script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            products:{},
+            productst:{}
+        },
+        created: function () {
+            var that = this;
+            $.ajax({
+                url: "http://rest.xingningkeji.com/api/product/list/1",
+                // url:"js/products.json",
+                type: "get",
+                dataType: "json",
+                data: {},
+                success: function (date) {
+                    if(date.code==200){
+                        that.products=date.data.result;
+                        // console.log(that.products);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+            $.ajax({
+                url: "http://rest.xingningkeji.com/api/product/list/2",
+                // url:"js/products.json",
+                type: "get",
+                dataType: "json",
+                data: {},
+                success: function (date) {
+                    if(date.code==200){
+                        that.productst=date.data.result;
+                        // console.log(that.products);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

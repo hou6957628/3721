@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--ie和chrome中最佳的兼容模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--启用 webapp 模式, 会隐藏工具栏和菜单栏，和其它配合使用。-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--在webapp模式下，改变顶部状态条的颜色。-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--屏蔽电话号码-->
+    <meta name="format-detection" content="telephone=no">
+    <title>3721贷</title>
+    <link href="https://cdn.bootcss.com/layer/3.1.0/mobile/need/layer.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/Swiper/4.2.0/css/swiper.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="http://sdk.talkingdata.com/app/h5/v1?appid=2079941E61844EAC909E5A6156CA5D07"></script>
+    <script src="js/flx.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+        .channelItem .itemTop .itemImg{
+            width: 1.20rem;
+            height: 1.20rem;
+            margin-left: 0.60rem;
+        }
+        .footerUl{
+            width: 100%;
+        }
+        .footerUl li{
+            display: block;
+            height: 35px;
+            line-height: 35px;
+            background-color: #fff;
+            margin-top: 5px;
+            text-align: center;
+            font-size: 16px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!--header start-->
+    <header id="header" class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img
+                    src="images/card.jpg"></div>
+            <div class="swiper-slide"><img
+                    src="images/card.jpg"></div>
+            <div class="swiper-slide"><img
+                    src="images/card.jpg"></div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+    </header>
+    <!--header end-->
+
+    <!--content start-->
+    <div id="content" class="clearFix width_96">
+        <!--公告区域 start-->
+        <div class="gonggao clearFix" style="margin-bottom: 0.2rem">
+            <div style="width: 20%;float: left;text-align: center">公告:</div>
+            <marquee direction="left" Scrollamount="3" style="width: 80%;float: left;text-align: left">同时申请多款产品，可提高成功率!</marquee>
+        </div>
+        <!--公告区域 end-->
+        <div style="margin-top: 0.2rem">
+            <div class="channelItem clearFix" style="height: 2.5rem;" v-for="item in products" :key="item.id">
+                <div class="itemTop1 clearFix">
+                    <img class="itemImg bankCard" :src="'http://rest.xingningkeji.com/api/file/view/'+item.product_icon_small">
+                    <!--<img class="itemImg" src="images/ajq.png">-->
+                    <div class="itemDetail">
+                        <p class="p1">{{item.product_name}}</p>
+                        <p class="p2">{{item.product_paperwork}}</p>
+                    </div>
+                    <a href="javascript:;" class="itemBtn" :title="item.product_name" :src="item.product_url">立即申请</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--content end-->
+
+    <!--footer start-->
+    <footer id="footer">
+        <a href="index.html"><i class="indexIcon1"></i>
+            <p>首页</p>
+        </a>
+        <a href="loan.html"><i class="indexIcon2"></i>
+            <p>贷款</p>
+        </a>
+        <a class="active" href="creditCard.html"><i class="indexIcon3"></i>
+            <p>信用卡</p>
+        </a>
+        <a href="my.html"><i class="indexIcon5"></i>
+            <p>我的</p>
+        </a>
+    </footer>
+    <!--footer end-->
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            effect: 'fade',
+            loop: true,
+            autoplay: true,
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            // 如果需要滚动条
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        })
+    }
+</script>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.1/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.0.3/mobile/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.2.0/js/swiper.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            products:{},
+            money:"5000元以下",
+            time:"1个月以内"
+        },
+        created: function () {
+            var that = this;
+            $.ajax({
+                url: "http://rest.xingningkeji.com/api/product/list/2",
+                // url:"js/products.json",
+                type: "get",
+                headers : {'authorization':localStorage.token},
+                dataType: "json",
+                data: {},
+                success: function (date) {
+                    if(date.code==200){
+                        that.products=date.data.result;
+                        // console.log(that.products);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $(function () {
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+        var channel= GetQueryString("td_channelid");
+        //事件统计
+        $("#content").on("click",".itemBtn",function () {
+            if(localStorage.phone){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":localStorage.channel};
+                TDAPP.onEvent("银行卡链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }else if(localStorage.channel=="jsy"){
+                var num=$(this).attr("title");
+                var url=$(this).attr("src");
+                var kv = {"手机号":localStorage.phone,"来源渠道号":channel};
+                TDAPP.onEvent("贷款链接点击","产品名称:"+num,kv);
+                window.location.href=url;
+            }
+            else {
+                window.location.href='register.html'
+            }
+        });
+        //金额选择
+        $(".jinBox").on('click',function () {
+            //页面层
+            layer.open({
+                type: 1
+                ,skin: 'footer'
+                ,content: '<ul class="footerUl"><li onclick="zhi(this)">5000元以下</li><li onclick="zhi(this)">5000-10000元</li><li onclick="zhi(this)">10000元以上</li></ul>'
+                ,anim: 'up'
+            });
+        });
+        //期限选择
+        $(".shiBox").on('click',function () {
+            layer.open({
+                type: 1
+                ,skin: 'footer'
+                ,content: '<ul class="footerUl"><li onclick="shi(this)">1个月以内</li><li onclick="shi(this)">3个月</li><li onclick="shi(this)">6个月</li></ul>'
+                ,anim: 'up'
+            });
+        });
+    });
+    function zhi(date) {
+        vm.money=$(date).html();
+        layer.closeAll();
+    }
+    function shi(date) {
+        vm.time=$(date).html();
+        layer.closeAll();
+    }
+</script>
+</body>
+</html>

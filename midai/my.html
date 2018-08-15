@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--可视区域的定义，如屏幕缩放等。告诉浏览器如何规范的渲染网页-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--ie和chrome中最佳的兼容模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--启用 webapp 模式, 会隐藏工具栏和菜单栏，和其它配合使用。-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--在webapp模式下，改变顶部状态条的颜色。-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--屏蔽电话号码-->
+    <meta name="format-detection" content="telephone=no">
+    <title>3721贷</title>
+    <link href="https://cdn.bootcss.com/layer/3.1.0/mobile/need/layer.css" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/flx.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+        #header{
+            background-color: #1E9FFF;
+            padding-top: 1rem;
+            padding-bottom: 0.3rem;
+        }
+        .goOut{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!--header start-->
+    <header id="header">
+        <img src="images/tou.png" class="touIcon">
+        <p v-if="phone" class="phoneNumber">{{phone}}</p>
+        <a v-else="phone" href="register.html" class="phoneNumber">注册/登录</a>
+    </header>
+    <!--header end-->
+
+    <!--content start-->
+    <div id="content" class="clearFix width_96" style="background-color: #fff;padding:0;">
+        <div class="myLine">
+            <a href="#">
+                <i class="changjian"></i><span>常见问题</span><i class="rightIcon">></i>
+            </a>
+        </div>
+        <div class="myLine">
+            <a href="#">
+                <i class="kefu"></i><span>客服电话</span><i class="rightIcon">> </i>
+            </a>
+        </div>
+        <div class="myLine">
+            <a href="#">
+                <i class="guangyu"></i><span>关于我们</span><i class="rightIcon"> > </i>
+            </a>
+        </div>
+        <div class="myLine">
+            <a class="goOut" href="javascript:;">
+                <i class="goOutImg"></i><span>退出</span><i class="rightIcon"> > </i>
+            </a>
+        </div>
+    </div>
+    <!--content end-->
+
+    <!--footer start-->
+    <footer id="footer">
+        <a href="index.html"><i class="indexIcon1"></i>
+            <p>首页</p>
+        </a>
+        <a href="loan.html"><i class="indexIcon2"></i>
+            <p>贷款</p>
+        </a>
+        <a href="creditCard.html"><i class="indexIcon3"></i>
+            <p>信用卡</p>
+        </a>
+        <a class="active" href="my.html"><i class="indexIcon5"></i>
+            <p>我的</p>
+        </a>
+    </footer>
+    <!--footer end-->
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.1/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/3.0.3/mobile/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/Swiper/4.2.0/js/swiper.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            phone:''
+        },
+        created: function () {
+            var that = this;
+            that.phone=localStorage.phone;
+        }
+    });
+</script>
+<script>
+    $(function () {
+        $("#content .goOut").on('click',function () {
+            layer.open({
+                content: '确定要退出吗？'
+                ,btn: ['确定', '取消']
+                ,anim: 'up'
+                ,yes: function(index){
+                    localStorage.clear();
+                    location.reload();
+                    layer.close(index);
+                }
+            });
+        })
+    })
+</script>
+</body>
+</html>

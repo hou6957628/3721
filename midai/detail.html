@@ -1,0 +1,143 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>借点儿</title>
+    <meta name="keywords" content="卡农社区 贷款">
+    <meta name="description" content="贷款超市">
+    <link rel="icon" href="/Public/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/Public/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="mobile-agent" content="format=html5;url=">
+    <meta http-equiv="mobile-agent" content="format=xhtml; url=">
+    <link rel="stylesheet" type="text/css" media="all" href="https://daikuan-static.kanongyun.com/Public/Home/css/mobile/base.css?84ed4521c351590c584f1655ab8952e3">
+    <link rel="stylesheet" type="text/css" media="all" href="https://daikuan-static.kanongyun.com/Public/Home/css/mobile/style.css?84ed4521c351590c584f1655ab8952e3">
+    <script type="text/javascript" src="https://daikuan-static.kanongyun.com/Public/static/jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+<div class="detail_head clearfix">
+    <dl>
+        <dt class="icon fl">
+            <img alt="借点儿" src="http://www.zytech360.com/jiedian512.png">
+        </dt>
+        <dd class="fl">
+            <p class="title mbn">借点儿</p>
+            <p>
+                申请人数：<i>14711</i>
+            </p>
+            <p>纯信用借款，5分钟申请，100秒到账，上班族均可</p>
+        </dd>
+        <dd class="shenqing_btn" style="display:none;">
+            <a href="javascript:;" onclick="count_visit()">立即申请</a>
+        </dd>
+    </dl>
+</div>
+<div class="shenqing_btn" id="shenqing_btn_float">
+    <a href="javascript:;" onclick="count_visit()">立即申请</a>
+    <script>
+        function count_visit( ){
+            var ajaxurl = "/home/daikuan/click_count";
+            $.post(ajaxurl,{
+                did:'29969',
+                come:'mobile',
+            },function(data){
+                window.top.location.href='http://www.zhugebaika.com/reg/index/3';
+            },'html');
+        }
+    </script>
+</div>
+<div class="block_box mtw view">
+    <ul class="shuju clearfix">
+        <li class="bb">
+            额度
+            <p>1000-6000</p>
+        </li>
+        <li class="bb">
+            期限
+            <p>7-14天</p>
+        </li>
+        <li class="bb norb">
+            费用
+            <p>年利率6.5%</p>
+        </li>
+        <li>
+            放款速度
+            <p>当天放款</p>
+        </li>
+        <li>
+            审核方式
+            <p>人工审核</p>
+        </li>
+        <li class="norb">
+            到账方式
+            <p>银行卡</p>
+        </li>
+    </ul>
+</div>
+<div class="block_box mtw group zhengxin">
+    <dl class="clearfix">
+        <dt>征信要求：</dt>
+        <dd>不需要</dd>
+    </dl>
+    <dl class="clearfix">
+        <dt>平台名称：</dt>
+        <dd>纯信用借款，5分钟申请，100秒到账，上班族均可</dd>
+    </dl>
+</div>
+<div class="block_box mtw group">
+    <div class="title">
+        <h1>申请攻略</h1>
+    </div>
+    <div class="content">
+        <p>
+            申请资料：
+        </p>
+        <p>
+            身份证，银行卡，运行商认证
+        </p>		</div>
+</div>
+<style>
+    .footer{
+        margin-bottom: 30px;
+    }
+</style>
+
+
+
+<div class="footer_nav">
+
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        if($('.daikuan_list').length>0){
+            var daikuan_node_w = $('.daikuan_list dl').width();
+            $('.daikuan_list dl dd').width(daikuan_node_w - $('.daikuan_list dt').width() );
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    (function(){
+        var ThinkPHP = window.Think = {
+            "ROOT"   : "", //当前网站地址
+            "APP"    : "", //当前项目地址
+            "PUBLIC" : "/Public", //项目公共目录地址
+            "DEEP"   : "/", //PATHINFO分割符
+            "MODEL"  : ["2", "1", "html"],
+            "VAR"    : ["m", "c", "a"]
+        }
+    })();
+</script>
+
+
+<div class="hidden">
+
+</div>
+</body>
+</html>
